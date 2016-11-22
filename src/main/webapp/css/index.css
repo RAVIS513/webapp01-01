@@ -1,0 +1,220 @@
+@CHARSET "UTF-8";
+
+/**
+ * ベース色
+ * #222222
+ * #4682B4
+ * #EEEEFF
+ **/
+
+/* ***************************************
+ * Common Style
+ *************************************** */
+body {
+
+}
+
+/* ***************************************
+ * side Style
+ *************************************** */
+#sideMenu {
+	background-color: #FFFFFF;
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 200px;
+	height: 100%;
+	overflow: hidden;
+	border-right: 1px solid #B9B9B9;
+}
+
+#sideMenuTitle {
+	background-color: #222222;
+	color: #FFFFFF;
+	width: 200px;
+	height: 150px;
+	text-align: center;
+	border-bottom: 1px solid #4682B4;
+	position: fixed;
+	top: 0;
+	left :0;
+	z-index: 1;
+}
+
+#sideMenuTitle:hover {
+	cursor: pointer;
+}
+
+#sideMenuTitleWord {
+	height: 130px;
+	font-size: 160%;
+	line-height: 130px;
+}
+
+#sideMenuTitleUpdate {
+	height: 20px;
+	font-size: 80%;
+}
+
+#sideMenuContent {
+	margin-top: 151px;
+}
+
+#sideMenuContent dt {
+	position: relative;
+	height: 2em;
+	width: 100%;
+	line-height: 2em;
+	border-bottom: 1px solid #4682B4;
+	padding-left: 1em;
+}
+
+#sideMenuContent dd {
+	position: relative;
+	height: 2em;
+	width: 100%;
+	line-height: 2em;
+	border-bottom: 1px solid #4682B4;
+	display: none;
+	background-color: #EEEEFF;
+	padding-left: 3em;
+}
+
+#sideMenuContent dt:hover,
+#sideMenuContent dd:hover {
+	background-color: #4682B4;
+	color: #FFFFFF;
+}
+
+#sideMenuContent a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#sideMenuContent dt i {
+	color: #4682B4;
+}
+
+#sideMenuContent dt:hover i {
+	color: #FFFFFF;
+}
+
+
+.mCSB_inside>.mCSB_container {
+	margin-right: 0px;
+}
+
+ /* ***************************************
+ * main Style
+ *************************************** */
+#mainContent {
+	background-color: #FFFFFF;
+	margin-left: 201px;
+}
+
+ /* ***************************************
+ * Home Style
+ *************************************** */
+#noteHomeWrapper {
+	margin: 10px;
+}
+
+#noteHomeTitle {
+	font-size: 140%;
+	font-weight: bold;
+	margin: 20px 0px 20px 0px;
+}
+
+#noteHomeContent {
+	line-height: 1.2em;
+	margin-left: 1em;
+}
+
+#noteHomeFooter {
+	margin: 20px 0px 20px 0px;
+	text-align: center;
+}
+
+ /* ***************************************
+ * List Style
+ *************************************** */
+#contentsListWrapper {
+ 	position: relative;
+ }
+
+#contentsListHeader {
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	width: 100%;
+	height: 2.5em;
+	background-color: #222222;
+	color: #FFFFFF;
+	line-height: 2.5em;
+	border-bottom: 1px solid #4682B4;
+ }
+
+#contentsListHeaderTitle {
+	float: left;
+	margin-left: 5px;
+	font-size: 140%;
+	font-weight: bold;
+}
+
+#contentsListHeaderSearch {
+	margin-right: 231px; /* sideMenu + border + α */
+	float: right;
+}
+
+#contentsListHeaderSearch i:hover {
+	cursor: pointer;
+}
+
+#contentsListHeaderDummy {
+	height: 2.5em;
+}
+
+dl#contentsListBody dd {
+	position: relative;
+	padding: 10px;
+}
+
+dl#contentsListBody dd.contentsListBodyBox {
+	border-bottom: 1px solid #4682B4;
+}
+
+dl#contentsListBody dd.contentsListBodyBox:hover {
+	background-color: #4682B4;
+	color: #FFFFFF;
+}
+
+dl#contentsListBody dd a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.contentsListBodyTitle {
+	font-size: 140%;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.contentsListBodyUploadDate {
+	margin-left: 1em;
+	margin-bottom: 10px;
+	font-size: 80%;
+}
+
+.contentsListBodyOverview {
+	margin-left: 1em;
+	font-size: 90%;
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================== -->
+<!-- Project Setting                        -->
+<!-- ====================================== -->
+<project name="bluenote" default="build" basedir="../">
+
+	<echo message="${basedir}"/>
+
+	<!-- ====================================== -->
+	<!-- Build environment properties           -->
+	<!-- ====================================== -->
+	<property environment=""/>
+	<property file="${basedir}/ant/build.properties"/>
+	<property name="webapp" value="${basedir}/src/main/webapp"/>
+	<property name="lib" value="${webapp}/WEB-INF/lib"/>
+	<property name="classes" value="${webapp}/WEB-INF/classes"/>
+	<property name="target" value="${basedir}/target"/>
+	<property name="deploy" value="${target}/deploy"/>
+	<property name="src.java" value="${basedir}/src/main/java"/>
+	<property name="src.resource" value="${basedir}/src/main/resource"/>
+
+	<!-- ====================================== -->
+	<!-- ClassPath Setting For Library          -->
+	<!-- ====================================== -->
+	<path id="build.classpath">
+		<fileset dir="${lib}" includes="*.jar" />
+		<pathelement location="${.TOMCAT_HOME}/lib/annotations-api.jar"/>
+		<pathelement location="${.TOMCAT_HOME}/lib/el-api.jar"/>
+		<pathelement location="${.TOMCAT_HOME}/lib/jasper.jar"/>
+		<pathelement location="${.TOMCAT_HOME}/lib/jsp-api.jar"/>
+		<pathelement location="${.TOMCAT_HOME}/lib/servlet-api.jar"/>
+	</path>
+
+	<!-- ====================================== -->
+	<!-- Initialization                         -->
+	<!-- ====================================== -->
+	<target name="clean" description="Clean the Output Directory">
+		<delete dir="${target}"/>
+		<delete dir="${classes}"/>
+		<mkdir dir="${target}"/>
+		<mkdir dir="${classes}"/>
+	</target>
+
+	<!-- ====================================== -->
+	<!-- Compile                                -->
+	<!-- ====================================== -->
+	<target name="compile" description="Compile" depends="clean">
+		<javac
+			classpathref="build.classpath"
+			srcdir="${src.java}"
+			destdir="${classes}"
+			encoding="UTF-8"
+			source="1.8"
+			target="1.8"
+			fork="true"
+			memorymaximumsize="256m"
+			includeAntRuntime="false"
+			debug="true"
+		/>
+	</target>
+
+	<!-- ====================================== -->
+	<!-- Copy                                   -->
+	<!-- ====================================== -->
+	<target name="copy" depends="compile">
+		<copy todir="${classes}">
+			<fileset dir="${src.resource}">
+				<exclude name="*.properties"/>
+				<exclude name="release"/>
+				<exclude name="release/**/*"/>
+			</fileset>
+			<fileset file="${src.resource}/release/*.properties"/>
+		</copy>
+	</target>
+
+	<!-- ====================================== -->
+	<!-- Build                                  -->
+	<!-- ====================================== -->
+	<target name="build" depends="copy">
+		<war destfile="${target}/${war.name}.war" webxml="${webapp}/WEB-INF/web.xml">
+			<fileset dir="${webapp}">
+				<exclude name="**/web.xml"/>
+				<exclude name="css/archives/*"/>
+				<exclude name="css/procisional/*"/>
+				<exclude name="css/temp/*"/>
+				<exclude name="img/upload/*"/>
+				<exclude name="WEB-INF/views/archives/*"/>
+				<exclude name="WEB-INF/views/provisional/*"/>
+				<exclude name="WEB-INF/views/temp/*"/>
+			</fileset>
+		</war>
+	</target>
+
+</project>

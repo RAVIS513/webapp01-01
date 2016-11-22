@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+/* **************
+ * Base Style
+ *
+ * #4682B4
+ *************** */
+#archive_wrraper {
+	margin: 5px;
+}
+
+#archive_header {
+	width: 100%;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #4682B4;
+}
+
+#archive_title {
+	font-size: 200%;
+	font-weight: bold;
+	margin: 15px 0px 15px 0px;
+}
+
+#archive_uploadDate {
+	float: left;
+}
+
+#archive_class {
+	float: right;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.clearfix {
+	zoom: 1; /* for IE6/7 */
+}
+
+.archive_section {
+	margin: 10px 0px 10px 0px;
+}
+
+.archive_section_title {
+	font-size: 130%;
+	font-weight: bold;
+	margin: 10px 0px 10px 0px;
+}
+
+.archive_section_content {
+	margin-left: 1em;
+	margin-bottom: 2em;
+	line-height: 1.4em;
+}

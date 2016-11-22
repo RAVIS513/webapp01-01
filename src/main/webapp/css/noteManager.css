@@ -1,0 +1,182 @@
+@CHARSET "UTF-8";
+
+/**
+ * ベース色
+ * #4682B4
+ **/
+
+/* ***************************************
+ * Common Style
+ *************************************** */
+button {
+	background-color: #4682B4;
+	color: #FFFFFF;
+	padding: 0px 5px 0px 5px;
+	height: 1.4em;
+	border-style: none;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+table {
+	width: 99%;
+	border-collapse: collapse;
+	font-size: 80%;
+}
+
+table th {
+	padding: 5px;
+	text-align: left;
+	vertical-align: middle;
+	border: 1px solid #B9B9B9;
+}
+
+table td {
+	padding: 5px;
+	text-align: left;
+	vertical-align: middle;
+	border: 1px solid #B9B9B9;
+}
+
+#managerBody {
+	position: relative;
+}
+
+#managerBodyHeader {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 2.5em;
+	background-color: #222222;
+	color: #FFFFFF;
+	line-height: 2.5em;
+}
+
+#managerBodyHeaderTitle {
+	margin-left: 5px;
+	font-size: 160%;
+}
+
+#managerBodyHeaderUserId {
+	position: fixed;
+	top: 0;
+	right: 10px;
+}
+
+#managerBodyHeaderDummy {
+	height: 2.5em;
+}
+
+/* ***************************************
+ * Login Style
+ *************************************** */
+#managerLogin {
+	padding-top: 10em;
+}
+
+#loginForm div{
+	height: 2em;
+	text-align: center;
+}
+
+#loginForm div i {
+	width: 2em;
+}
+
+/* ***************************************
+ * Home Style
+ *************************************** */
+.managerHomeErrorMessage {
+	color: red;
+}
+
+.managerHomeTitle {
+	margin: 5px 0px 5px 0px;
+	font-size: 140%;
+	font-weight: bold;
+	width: 100%;
+}
+
+.managerHomeTitle p {
+	margin-left: 5px;
+}
+
+.managerHomeContents {
+	margin-left: 5px;
+}
+
+.managerHomeContents p {
+	height: 1.2em;
+}
+
+#editContents,
+#deleteContents,
+#viewContents {
+	float: left;
+}
+
+/* ***************************************
+ * Create Style
+ *************************************** */
+i#create,
+i#modal-image,
+i#preView,
+i#save,
+i#back {
+	margin-right: 20px;
+	cursor:pointer;
+}
+
+#createContentsForm table th {
+	background-color: #EFE;
+}
+
+#createContentsForm table input,
+#createContentsForm table textarea {
+	width: 99%;
+}
+
+#createContentsForm table textarea#overView {
+	height: 5em;
+}
+
+#createContentsForm table textarea#jsp {
+	height: 100em;
+}
+
+#createContentsForm table textarea#css {
+	height: 100em;
+}
+
+.modal-wrapper {
+	margin: 10px;
+}
+
+#uploadImageTitle {
+	font-size: 150%;
+	line-height: 200%;
+}
+
+img.uploadImage {
+	width: 200px;
+	border: 3px solid transparent;
+}
+
+img.uploadImage:hover {
+	cursor: pointer;
+	border: 3px solid #0F0;
+}
+
+#uploadImageList {
+	max-height: 300px;
+	padding: 5px;
+	border: 1px solid #4682B4;
+	overflow-y: scroll;
+}
+
+.uploadImageBox {
+	text-align: center;
+	float: left;
+}

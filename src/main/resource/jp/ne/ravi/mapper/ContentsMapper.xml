@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.ne.ravi.mapper.ContentsMapper">
+
+	<resultMap type="jp.ne.ravi.dto.ContentsDto" id="ContentsResultMap">
+		<result column="SEQ_NO" property="seqNo" />
+		<result column="UPLOAD_DATE" property="uploadDate" />
+		<result column="JSP_FILE_NAME" property="jspFileName" />
+		<result column="CSS_FILE_NAME" property="cssFileName" />
+		<result column="TITLE" property="title" />
+		<result column="LARGE_CLASS" property="largeClass" />
+		<result column="MIDDLE_CLASS" property="middleClass" />
+		<result column="SMALL_CLASS" property="smallClass" />
+		<result column="OVERVIEW" property="overView" />
+		<result column="STATUS" property="status" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="UPDATE_USER_ID" property="updateUserId" />
+		<result column="DELETE_USER_ID" property="deleteUserId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="DELETE_TIME" property="deleteTime" />
+	</resultMap>
+
+	<select id="countByStatus" resultType="int">
+		SELECT COUNT(*) FROM webapp1.CONTENTS_TABLE WHERE STATUS=#{id}
+	</select>
+
+	<select id="countByExceptStatus" resultType="int">
+		SELECT COUNT(*) FROM webapp1.CONTENTS_TABLE WHERE STATUS!=#{id}
+	</select>
+
+	<select id="selectAll" resultMap="ContentsResultMap">
+		SELECT * FROM webapp1.CONTENTS_TABLE ORDER BY SEQ_NO
+	</select>
+
+	<select id="selectMaxUploadDate" resultType="java.sql.Date">
+		SELECT MAX(UPLOAD_DATE) FROM webapp1.CONTENTS_TABLE WHERE STATUS='0'
+	</select>
+
+	<select id="selectBySeqNo" resultMap="ContentsResultMap">
+		SELECT * FROM webapp1.CONTENTS_TABLE WHERE SEQ_NO=#{id}
+	</select>
+
+	<select id="selectByStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+			STATUS=#{id}
+		ORDER BY CREATE_TIME
+	</select>
+
+	<select id="selectByExceptStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+			STATUS!=#{id}
+		ORDER BY CREATE_TIME
+	</select>
+
+	<select id="selectByExceptStatusWithPagingForPostgres" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+			STATUS!=#{status}
+		ORDER BY CREATE_TIME
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="selectByExceptStatusWithPagingForOracle" resultMap="ContentsResultMap">
+		SELECT * FROM
+			(
+				SELECT
+					ROW_NUMBER() OVER (ORDER BY CREATE_TIME) RN,
+					SEQ_NO,
+					UPLOAD_DATE,
+					JSP_FILE_NAME,
+					CSS_FILE_NAME,
+					TITLE,
+					LARGE_CLASS,
+					MIDDLE_CLASS,
+					SMALL_CLASS,
+					OVERVIEW,
+					STATUS,
+					CREATE_USER_ID,
+					UPDATE_USER_ID,
+					DELETE_USER_ID,
+					CREATE_TIME,
+					UPDATE_TIME,
+					DELETE_TIME
+				FROM
+					webapp1.CONTENTS_TABLE
+				WHERE
+					STATUS!=#{status}
+				ORDER BY CREATE_TIME
+			)
+		WHERE
+			RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="selectByClassLAndStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	STATUS='${status}'
+		ORDER BY CREATE_TIME DESC
+	</select>
+
+	<select id="selectByClassLMAndStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	MIDDLE_CLASS='${middleClass}'
+			AND	STATUS='${status}'
+		ORDER BY CREATE_TIME DESC
+	</select>
+
+	<select id="selectByClassLMSAndStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	MIDDLE_CLASS='${middleClass}'
+			AND	SMALL_CLASS='${smallClass}'
+			AND	STATUS='${status}'
+		ORDER BY CREATE_TIME DESC
+	</select>
+
+	<select id="selectByClassLAndExceptStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND STATUS!='${status}'
+		ORDER BY CREATE_TIME
+	</select>
+
+	<select id="selectByClassLMAndExceptStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND MIDDLE_CLSS='${middleClass}'
+			AND STATUS!='${status}'
+		ORDER BY CREATE_TIME
+	</select>
+
+	<select id="selectByClassLMSAndExceptStatus" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND MIDDLE_CLSS='${middleClass}'
+			AND SMALL_CLASS='${smallClass}'
+			AND STATUS!='${status}'
+		ORDER BY CREATE_TIME
+	</select>
+
+	<select id="selectByClassLAndStatusAndSearch" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	STATUS='${status}'
+			AND	(
+					TITLE LIKE '%${search}%'
+				OR	OVERVIEW LIKE '%${search}%'
+			)
+		ORDER BY CREATE_TIME DESC
+	</select>
+
+	<select id="selectByClassLMAndStatusAndSearch" resultMap="ContentsResultMap">
+		SELECT * FROM
+			webapp1.CONTENTS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	MIDDLE_CLASS='${middleClass}'
+			AND	STATUS='${status}'
+			AND	(
+					TITLE LIKE '%${search}%'
+				OR	OVERVIEW LIKE '%#{search}%'
+			)
+		ORDER BY CREATE_TIME DESC
+	</select>
+
+	<insert id="insert" parameterType="jp.ne.ravi.dto.ContentsDto">
+		<selectKey resultType="int" keyProperty="seqNo" order="AFTER">
+			SELECT MAX(SEQ_NO) FROM webapp1.CONTENTS_TABLE;
+		</selectKey>
+		INSERT INTO webapp1.CONTENTS_TABLE (
+			UPLOAD_DATE,
+			JSP_FILE_NAME,
+			CSS_FILE_NAME,
+			TITLE,
+			LARGE_CLASS,
+			MIDDLE_CLASS,
+			SMALL_CLASS,
+			OVERVIEW,
+			STATUS,
+			CREATE_USER_ID,
+			CREATE_TIME
+		) VALUES (
+			'${uploadDate}',
+			'${jspFileName}',
+			'${cssFileName}',
+			'${title}',
+			'${largeClass}',
+			'${middleClass}',
+			'${smallClass}',
+			'${overView}',
+			'${status}',
+			'${createUserId}',
+			'${createTime}'
+		)
+	</insert>
+
+	<update id="update" parameterType="jp.ne.ravi.dto.ContentsDto">
+		UPDATE webapp1.CONTENTS_TABLE
+		SET
+			UPLOAD_DATE='${uploadDate}',
+			JSP_FILE_NAME='${jspFileName}',
+			CSS_FILE_NAME='${cssFileName}',
+			TITLE='${title}',
+			LARGE_CLASS='${largeClass}',
+			MIDDLE_CLASS='${middleClass}',
+			SMALL_CLASS='${smallClass}',
+			OVERVIEW='${overView}',
+			STATUS='${status}',
+			UPDATE_USER_ID='${updateUserId}',
+			UPDATE_TIME='${updateTime}'
+		WHERE
+			SEQ_NO=${seqNo}
+	</update>
+
+	<update id="updateTheStatusByUpdate" parameterType="jp.ne.ravi.dto.ContentsDto">
+		UPDATE webapp1.CONTENTS_TABLE
+		SET
+			STATUS='${status}',
+			UPDATE_USER_ID='${updateUserId}',
+			UPDATE_TIME='${updateTime}',
+		WHERE
+			SEQ_NO=${seqNo}
+	</update>
+
+	<update id="updateTheStatusByDelete" parameterType="jp.ne.ravi.dto.ContentsDto">
+		UPDATE webapp1.CONTENTS_TABLE
+		SET
+			STATUS='${status}',
+			DELETE_USER_ID='${deleteUserId}',
+			DELETE_TIME='${deleteTime}'
+		WHERE
+			SEQ_NO=${seqNo}
+	</update>
+
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.ne.ravi.mapper.ClassMapper">
+
+	<resultMap type="jp.ne.ravi.dto.ClassDto" id="ClassResultMap">
+		<result column="LARGE_CLASS" property="largeClass" />
+		<result column="MIDDLE_CLASS" property="middleClass" />
+		<result column="SMALL_CLASS" property="smallClass" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+	</resultMap>
+
+	<select id="count" resultType="int" parameterType="jp.ne.ravi.dto.ClassDto">
+		SELECT
+			COUNT(*)
+		FROM
+			webapp1.CLASS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	MIDDLE_CLASS='${middleClass}'
+			AND	SMALL_CLASS='${smallClass}'
+	</select>
+
+	<select id="selectAll" resultMap="ClassResultMap">
+		SELECT
+			*
+		FROM
+			webapp1.CLASS_TABLE
+		ORDER BY LARGE_CLASS, MIDDLE_CLASS, SMALL_CLASS
+	</select>
+
+	<insert id="insert" parameterType="jp.ne.ravi.dto.ClassDto">
+		INSERT INTO webapp1.CLASS_TABLE (
+			LARGE_CLASS,
+			MIDDLE_CLASS,
+			SMALL_CLASS,
+			CREATE_TIME
+		) VALUES (
+			'${largeClass}',
+			'${middleClass}',
+			'${smallClass}',
+			'${createTime}'
+		)
+	</insert>
+
+	<delete id="delete" parameterType="jp.ne.ravi.dto.ClassDto">
+		DELETE FROM
+			webapp1.CLASS_TABLE
+		WHERE
+				LARGE_CLASS='${largeClass}'
+			AND	MIDDLE_CLASS='${middleClass}'
+			AND SMALL_CLASS='${smallClass}'
+	</delete>
+
+</mapper>
