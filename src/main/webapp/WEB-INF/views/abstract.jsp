@@ -13,11 +13,13 @@
 <meta name="author" content="TeamRavi">
 <meta name="copyright" content="Copyright &copy; 2016 TeamRavi. All Rights Reserved.">
 <%-- その他METAタグ --%>
+<meta name="google-site-verification" content="PAJ8rOoUJouIalNt8SN1pSOiLmRlSeoMnRXXjRPG4wY" />
 <c:if test="${not empty param.addHeadMeta}">
 	${param.addHeadMeta}
 </c:if>
 <%-- 外部スタイルシート --%>
 <link rel="stylesheet" type="text/css" href='<c:url value="/css/common.css"></c:url>'>
+<link rel="stylesheet" type="text/css" href='<c:url value="/css/common_contents.css"></c:url>'>
 <link rel="stylesheet" type="text/css" href='<c:url value="/css/font-awesome-4.6.3/css/font-awesome.min.css"></c:url>'>
 <c:if test="${not empty param.addHeadStyleSheet}">
 	${param.addHeadStyleSheet}

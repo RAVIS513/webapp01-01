@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+/* **************
+ * 記事用共通スタイル
+ *************** */
+.code-bg {
+	background-color: #f8f8f8;
+	padding: 10px 20px;
+}
